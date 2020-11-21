@@ -14,13 +14,18 @@ For this contract, we will use a standard ERC20Mintable and ERC20Detailed contra
 
 
 contract PupperCoin is ERC20, ERC20Detailed, ERC20Mintable {
+
     constructor(
+    
         string memory name,
         string memory symbol,
         uint initial_supply
+        
     )
+    
         ERC20Detailed(name, symbol, 18)
         public
+        
     {
         // constructor can stay empty
     }
@@ -43,8 +48,11 @@ We hardcoded a rate of 1, to maintain parity with Ether units (1 TKN per Ether, 
 
 
 PupperCoinCrowdsaleContract:
+
  contract PupperCoinSale is Crowdsale, MintedCrowdsale, CappedCrowdsale, TimedCrowdsale, RefundablePostDeliveryCrowdsale {
+ 
     constructor(
+    
         uint rate, //  rate in 1 TKN per Ether, or 1 TKNbit per wei)
         address payable wallet, // sale beneficiary
         PupperCoin token, // the PupperCoin itself that the PupperCoinSale will work with
@@ -105,7 +113,9 @@ Once again, we stored the address of the PupperCoinSale in the token_sale_addres
 
 
 Finally, we set the PupperCoinSale contract as a minter, then renounce "mintership" from the PupperCoinSaleDeployer contract, like so:
+
 token.addMinter(token_sale_address);
+
 token.renounceMinter();
 
 
