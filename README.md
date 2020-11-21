@@ -71,7 +71,7 @@ PupperCoinCrowdsaleContract:
    
 
 
-### PupperCoinCrowdsaleDeployer
+### PupperCoinCrowdSaleDeployer
 
 Now, below PupperCoinSale, at the top of the PupperCoinSaleDeployer contract, we added the following variables to store the addresses of the PupperCoin and PupperCoinSale contracts that this contract will be deploying:
 
