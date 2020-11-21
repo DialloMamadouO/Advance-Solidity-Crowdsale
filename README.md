@@ -11,6 +11,8 @@ We will use Remix to create two files, one for a standard ERC20Mintable token an
 ### ERC20 PupperCoin
 For this contract, we will use a standard ERC20Mintable and ERC20Detailed contract and hardcode 18 as the decimals parameter but we will leave the initial_supply parameter alone for now.
 
+
+
 contract PupperCoin is ERC20, ERC20Detailed, ERC20Mintable {
     constructor(
         string memory name,
@@ -24,26 +26,21 @@ contract PupperCoin is ERC20, ERC20Detailed, ERC20Mintable {
     }
 }
 
+
+
 ### PupperCoinCrowdsale
 We will leverage a standard crowdasle and bootstrap that contract to inherit the following OpenZeppelin contracts: 
 
 Crowdsale
-
-
 MintedCrowdsale
-
-
 CappedCrowdsale
-
-
 TimedCrowdsale
-
-
 RefundablePostDeliveryCrowdsale
 
 
 We provided parameters for all of the features of our crowdsale, such as the name, symbol, wallet for fundraising, goal, cap, openingtime and closingtime.
 We hardcoded a rate of 1, to maintain parity with Ether units (1 TKN per Ether, or 1 TKNbit per wei). Since PupperCoinCrowdsale inherited all the above contracts, we called them into the constructor. We passed the open and close times, to now and now + 24 weeks to set the times properly from our PupperCoinCrowdsaleDeployer contract.
+
 
 PupperCoinCrowdsaleContract:
  contract PupperCoinSale is Crowdsale, MintedCrowdsale, CappedCrowdsale, TimedCrowdsale, RefundablePostDeliveryCrowdsale {
@@ -55,8 +52,7 @@ PupperCoinCrowdsaleContract:
         uint goal, //minimum goal in Ether
         uint open, //Opening time
         uint close //Closing time
-        
-        
+         
     )
         MintedCrowdsale()
         CappedCrowdsale(cap)
@@ -65,6 +61,7 @@ PupperCoinCrowdsaleContract:
         Crowdsale(rate, wallet, token)
         public
    
+
 
 ### PupperCoinCrowdsaleDeployer
 
@@ -89,6 +86,7 @@ Then, we stored the address of the token by using token_address = address(token)
 
 Next, we created the PupperCoinSale contract instance using the same logic we used when creating PupperCoin token. We stored the variable in PupperCoinSale puppercoinSale and set the parameters:
 
+
 rate, hard-coded to 1 in order to maintain the same units as Ether.
 
 wallet, passed in from the main constructor, this is the wallet that will get paid all Ether raised by the PupperCoinSale.
@@ -103,14 +101,16 @@ open, opening time of the crowdsale.
 
 close, closing time of the crowdsale.
 
-Once again, we stored the address of the PupperCoinSale in the token_sale_address variable for easy access.
+Once again, we stored the address of the PupperCoinSale in the token_sale_address variable for easy access later.
 
 
 Finally, we set the PupperCoinSale contract as a minter, then renounce "mintership" from the PupperCoinSaleDeployer contract, like so:
 token.addMinter(token_sale_address);
 token.renounceMinter();
 
+
 We need to do this because when we set our token as ERC20Mintable, the msg.sender is automatically set as the default minter. Since PupperCoinSaleDeployer is actually msg.sender in this case, this step will ensure that the PupperCoinSale is the actual minter, as expected.
+
 
 contract PupperCoinSaleDeployer {
 
@@ -141,6 +141,7 @@ contract PupperCoinSaleDeployer {
         token.renounceMinter();
     }
 }
+
 
 
 ### Testing the Crowdsale
