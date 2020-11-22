@@ -1,4 +1,4 @@
-# Advanced-Solidity-Crowdsale
+# Advance-Solidity-Crowdsale
 
 In this project, we will create a crowdsale PupperCoin token to fund a network development. The goal of this crowdsale is to raise 300 Ether, so we will enable refund if the crowdsale is successfull and the goal is met within 24 weeks.
 We will leverage the OpenZeppelin Solidity library to create an ERC20 token that will be minted through the Crowdsale contract which will manage the entire process, allowing users to send Ether and get back PupperCoin (PUP).
