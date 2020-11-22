@@ -155,6 +155,7 @@ contract PupperCoinSaleDeployer {
 
 ### Testing the Crowdsale
 To send Ether and get PUP back you will need to use the deployed contract's approve function, you enter your address and the amount you are spending and confirm the transaction on MetaMask to complete the transaction (see screenshot).
+An investor would use the transfer or transferfrom from the deployed contract to send Ether to the contract and receive PUP back. The mint function is used to increase the supply and the balanceof is used to check the balance of a given account. The deployed contract works accordingly.
 
 
 
